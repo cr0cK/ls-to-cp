@@ -3,7 +3,7 @@
 // Copy files to a destination path computed from a regexp.
 //
 // Usage:
-// ls lib/company*/src/**/*.{gif,png,jpg} 2>/dev/null | ls-to-cp -p '/^lib\/([^\/]+).*\/([^\/]+)$/' -d '/path/to/img/$1/$2'
+// ls lib/company*/src/**/*.{gif,png,jpg} 2>/dev/null | ls-to-cp -p '^lib\/([^\/]+).*\/([^\/]+)$' -d '/path/to/img/$1/$2'
 
 const fs = require('fs');
 const path = require('path');
@@ -52,9 +52,15 @@ process.stdin.on('end', function() {
     // create dest dir
     mkdirp.sync(path.dirname(destPath));
 
-    // copy file to dest dir
-    fs.createReadStream(file).pipe(fs.createWriteStream(destPath));
+    const srcFile = path.join(process.cwd(), file);
+    console.log('srcFile', srcFile);
 
-    process.stdout.write(`✔ ${file} -> ${destPath}\n`);
+    if (destPath !== srcFile) {
+      // copy file to dest dir
+      fs.createReadStream(srcFile).pipe(fs.createWriteStream(destPath));
+      process.stdout.write(`✔ ${file} -> ${destPath}\n`);
+    } else {
+      process.stdout.write(`✗ ${file} -> ${destPath}\n`);
+    }
   })
 });
