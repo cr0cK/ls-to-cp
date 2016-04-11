@@ -1,6 +1,6 @@
 {
   "name": "ls-to-cp",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Copy files to a destination path computed from a regexp.",
   "bin": {
     "ls-to-cp": "index.js"
