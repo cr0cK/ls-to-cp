@@ -1,0 +1,33 @@
+{
+  "name": "ls-to-cp",
+  "version": "1.0.0",
+  "description": "Copy files to a destination path computed from a regexp.",
+  "bin": {
+    "ls-to-cp": "index.js"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "ls",
+    "cp",
+    "regexp"
+  ],
+  "author": "Alexis MINEAUD <alexis.mineaud@gmail.com>",
+  "license": "MIT",
+  "engines": {
+    "node": ">=4.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cr0cK/ls-to-cp.git"
+  },
+  "bugs": {
+    "url": "https://github.com/cr0cK/ls-to-cp/issues"
+  },
+  "homepage": "https://github.com/cr0cK/ls-to-cp#readme",
+  "dependencies": {
+    "commander": "^2.9.0",
+    "mkdirp": "^0.5.1"
+  }
+}
