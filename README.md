@@ -1,10 +1,10 @@
-# rev-ls
+# ls-to-cp
 
 Copy files to a destination path computed from a regexp.
 
 ## Installation
 
-`npm i -g rev-ls`
+`npm i -g ls-to-cp`
 
 ## How to use
 

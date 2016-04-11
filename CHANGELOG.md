@@ -5,6 +5,10 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## 1.0.1 - 2016-04-11
+### Fix
+  - Fix README.
+
 ## 1.0.0 - 2016-04-11
 ### Added
   - Initial commit.
