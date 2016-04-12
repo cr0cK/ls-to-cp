@@ -53,7 +53,6 @@ process.stdin.on('end', function() {
     mkdirp.sync(path.dirname(destPath));
 
     const srcFile = path.join(process.cwd(), file);
-    console.log('srcFile', srcFile);
 
     if (destPath !== srcFile) {
       // copy file to dest dir
