@@ -9,6 +9,8 @@ const fs = require('fs');
 const path = require('path');
 const commander = require('commander');
 const mkdirp = require('mkdirp');
+const ncp = require('ncp').ncp;
+
 
 commander
   .option('-p, --pattern <regexp>', 'Regexp used to parse the lists on stdin (ex: "^lib\/([^\/]+).*\/([^\/]+)$"')
@@ -43,23 +45,35 @@ process.stdin.on('end', function() {
     process.exit(1);
   }
 
-  const files = dataStdin.split(/\s+/).filter(Boolean);
+  const list = dataStdin.split(/\s+/).filter(Boolean);
 
-  files.forEach(file => {
+  list.forEach(file => {
     const regexp = new RegExp(commander.pattern);
-    const destPath = file.replace(regexp, commander.dest);
+    const dest = file.replace(regexp, commander.dest);
 
     // create dest dir
-    mkdirp.sync(path.dirname(destPath));
+    mkdirp.sync(path.dirname(dest));
 
-    const srcFile = path.join(process.cwd(), file);
+    const src = path.join(process.cwd(), file);
 
-    if (destPath !== srcFile) {
-      // copy file to dest dir
-      fs.createReadStream(srcFile).pipe(fs.createWriteStream(destPath));
-      process.stdout.write(`✔ ${file} -> ${destPath}\n`);
+    if (src !== dest) {
+      const stats = fs.statSync(src);
+
+      if (stats.isFile()) {
+        // copy file to dest dir
+        fs.createReadStream(src).pipe(fs.createWriteStream(dest));
+        process.stdout.write(`✔ ${file} -> ${dest}\n`);
+      } else if (stats.isDirectory()) {
+        ncp(src, dest, (err) => {
+          if (err) {
+            process.stdout.write(`✗ ${file}: Error when copying the directory\n`);
+          } else {
+            process.stdout.write(`✔ ${file} -> ${dest}\n`);
+          }
+        });
+      }
     } else {
-      process.stdout.write(`✗ ${file} -> ${destPath}\n`);
+      process.stdout.write(`✗ ${file}: Source and destination are the same\n`);
     }
   })
 });

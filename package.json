@@ -28,6 +28,7 @@
   "homepage": "https://github.com/cr0cK/ls-to-cp#readme",
   "dependencies": {
     "commander": "^2.9.0",
-    "mkdirp": "^0.5.1"
+    "mkdirp": "^0.5.1",
+    "ncp": "^2.0.0"
   }
 }
