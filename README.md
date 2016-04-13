@@ -11,7 +11,10 @@ Copy files to a destination path computed from a regexp.
 Examples:
 
 ```
-$ ls lib/mycompany*/src/**/*.{gif,png,jpg} 2>/dev/null | ls-to-cp -p '^lib\/([^\/]+).*\/([^\/]+)$' -d '/home/cr0cK/img/$1/$2'
-✔ lib/mycompany.react-lib/src/img/local-loader.gif -> /home/cr0cK/img/mycompany.react-lib/local-loader.gif
-✔ lib/mycompany.react-lib/src/styles/logo.png -> /home/cr0cK/img/mycompany.react-lib/logo.png
+$ find node_modules -type d -regextype posix-extended -regex '.*company\..*dist/assets' | ls-to-cp -p '^node_modules/([^/]+)/dist' -d 'dist/assets/$1'
+✔ node_modules/company.react-card/dist/assets -> dist/assets/company.react-card
+✔ node_modules/company.react-button-nav/dist/assets -> dist/assets/company.react-button-nav
+✔ node_modules/company.react-svg-icon/dist/assets -> dist/assets/company.react-svg-icon
+✔ node_modules/company.react-spinner/dist/assets -> dist/assets/company.react-spinner
+✔ node_modules/company.react-breadcrumbs/dist/assets -> dist/assets/company.react-breadcrumbs
 ```

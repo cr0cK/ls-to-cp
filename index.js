@@ -1,10 +1,5 @@
 #!/usr/bin/env node
 
-// Copy files to a destination path computed from a regexp.
-//
-// Usage:
-// ls lib/company*/src/**/*.{gif,png,jpg} 2>/dev/null | ls-to-cp -p '^lib\/([^\/]+).*\/([^\/]+)$' -d '/path/to/img/$1/$2'
-
 const fs = require('fs');
 const path = require('path');
 const commander = require('commander');
@@ -49,31 +44,33 @@ process.stdin.on('end', function() {
 
   list.forEach(file => {
     const regexp = new RegExp(commander.pattern);
-    const dest = file.replace(regexp, commander.dest);
+    const src = path.resolve(path.join(process.cwd(), file));
+    const dest = path.resolve(file.replace(regexp, commander.dest), '..')
 
     // create dest dir
     mkdirp.sync(path.dirname(dest));
 
-    const src = path.join(process.cwd(), file);
-
     if (src !== dest) {
       const stats = fs.statSync(src);
+
+      const shortSrc = path.relative(process.cwd(), src);
+      const shortDest = path.relative(process.cwd(), dest);
 
       if (stats.isFile()) {
         // copy file to dest dir
         fs.createReadStream(src).pipe(fs.createWriteStream(dest));
-        process.stdout.write(`✔ ${file} -> ${dest}\n`);
+        process.stdout.write(`✔ ${shortSrc} -> ${shortDest}\n`);
       } else if (stats.isDirectory()) {
         ncp(src, dest, (err) => {
           if (err) {
-            process.stdout.write(`✗ ${file}: Error when copying the directory\n`);
+            process.stdout.write(`✗ ${shortSrc}: Error when copying the directory\n`);
           } else {
-            process.stdout.write(`✔ ${file} -> ${dest}\n`);
+            process.stdout.write(`✔ ${shortSrc} -> ${shortDest}\n`);
           }
         });
       }
     } else {
-      process.stdout.write(`✗ ${file}: Source and destination are the same\n`);
+      process.stdout.write(`✗ ${shortSrc}: Source and destination are the same\n`);
     }
   })
 });
