@@ -5,6 +5,10 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## 2.0.3 - 2016-05-18
+### Fixed
+  - Fix again destination path.
+
 ## 2.0.2 - 2016-05-18
 ### Fixed
   - Fix destination path.

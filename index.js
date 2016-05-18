@@ -45,7 +45,7 @@ process.stdin.on('end', () => {
   list.forEach(file => {
     const regexp = new RegExp(commander.pattern);
     const src = path.resolve(path.join(process.cwd(), file));
-    const dest = path.resolve(file.replace(regexp, commander.dest), '..', file);
+    const dest = path.resolve(file.replace(regexp, commander.dest));
 
     // create dest dir
     mkdirp.sync(path.dirname(dest));

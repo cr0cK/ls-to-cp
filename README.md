@@ -2,6 +2,11 @@
 
 Copy files to a destination path computed from a regexp.
 
+> Warning:
+> This library is used for an internal project and is unstable and not tested by lack of time.
+> Use as your own risk.
+
+
 ## Installation
 
 `npm i -g ls-to-cp`
