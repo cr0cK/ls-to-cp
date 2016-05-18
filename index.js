@@ -30,12 +30,12 @@ const timeID = setTimeout(() => {
 }, 2000);
 
 var dataStdin = '';
-process.stdin.on('data', function(data) {
+process.stdin.on('data', (data) => {
   clearTimeout(timeID);
   dataStdin += data;
 });
 
-process.stdin.on('end', function() {
+process.stdin.on('end', () => {
   if (dataStdin === '') {
     process.exit(0);
   }
@@ -45,7 +45,7 @@ process.stdin.on('end', function() {
   list.forEach(file => {
     const regexp = new RegExp(commander.pattern);
     const src = path.resolve(path.join(process.cwd(), file));
-    const dest = path.resolve(file.replace(regexp, commander.dest), '..')
+    const dest = path.resolve(file.replace(regexp, commander.dest), '..', file);
 
     // create dest dir
     mkdirp.sync(path.dirname(dest));
@@ -70,7 +70,7 @@ process.stdin.on('end', function() {
         });
       }
     } else {
-      process.stdout.write(`✗ ${shortSrc}: Source and destination are the same\n`);
+      process.stdout.write(`✗ ${src}: Source and destination are the same\n`);
     }
-  })
+  });
 });
