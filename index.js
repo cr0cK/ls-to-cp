@@ -37,7 +37,7 @@ process.stdin.on('data', function(data) {
 
 process.stdin.on('end', function() {
   if (dataStdin === '') {
-    process.exit(1);
+    process.exit(0);
   }
 
   const list = dataStdin.split(/\s+/).filter(Boolean);

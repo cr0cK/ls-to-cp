@@ -5,6 +5,10 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## 2.0.1 - 2016-05-18
+### Fixed
+  - Don't return exit code 1 when stdin is an empty string.
+
 ## 2.0.0 - 2016-04-13
 ### Changed
   - Copy files to the root dir of the destination.
