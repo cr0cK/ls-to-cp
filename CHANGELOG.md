@@ -5,6 +5,10 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [2.1.0] - 2016-06-02
+### Added
+  - Option to set the timeout. Default to 5000 ms.
+
 ## 2.0.3 - 2016-05-18
 ### Fixed
   - Fix again destination path.
