@@ -10,6 +10,7 @@ const ncp = require('ncp').ncp;
 commander
   .option('-p, --pattern <regexp>', 'Regexp used to parse the lists on stdin (ex: "^lib\/([^\/]+).*\/([^\/]+)$"')
   .option('-d, --dest <string>', 'String that owns pattern matches (ex: /path/to/img/$1/$2')
+  .option('-t, --timeout <number>', 'Timeout to wait for data until the process exits', 5000)
   .parse(process.argv);
 
 /* Main */
@@ -27,7 +28,7 @@ const timeID = setTimeout(() => {
   process.stdout.write('No data received from stdin!');
   commander.help();
   process.exit(1);
-}, 2000);
+}, commander.timeout);
 
 var dataStdin = '';
 process.stdin.on('data', (data) => {
